@@ -6,23 +6,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cebem.medidor.models.Measure;
-import com.cebem.medidor.models.PokeRandom;
+import com.cebem.medidor.models.Pokemon;
 import com.cebem.medidor.models.RickandmortyCharacter;
-import com.cebem.medidor.utils.Utils;
-
-import lombok.RequiredArgsConstructor;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import com.cebem.medidor.repositories.MeasureRepository;
 import com.cebem.medidor.services.PokemonService;
 import com.cebem.medidor.services.RickandmortyService;
+import com.cebem.medidor.utils.Utils;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
@@ -69,24 +67,28 @@ public class PruebaController {
         sensorDataRepository.save(sensorData); // Guarda los datos en la base de datos
     }
 
-    @GetMapping("/getMeasure")
+    // Ahora queremos obtener todas las mediciones que se guardado en la BD
+    @GetMapping("/getMeasures")
     public ResponseEntity<List<Measure>> getAllSensorData() {
         List<Measure> sensorDataList = sensorDataRepository.findAll(); // Obtiene todas las mediciones
         return ResponseEntity.ok(sensorDataList); // Devuelve la lista de mediciones como respuesta
-
     }
 
-    public final RickandmortyService rickandmortyService;
+    private final RickandmortyService rickandmortyService;
 
+    // ejercicio 4 endpoints
     @GetMapping("/rickandmorty/random")
-    public RickandmortyCharacter randomRickAndMorty() {
+    public RickandmortyCharacter randomRickandmorty() {
+        // obtener los datos del personaje (nombre, foto, ...)
         return rickandmortyService.getCharacterRandom();
+        // return "<h2>XXXX</h2><img src='XXX.png'";
     }
 
-    public final PokemonService pokemonService;
+    private final PokemonService pokemonService;
 
-    @GetMapping("/randomPoke")
-    public PokeRandom getRandomPokemon() {
+    @GetMapping("/poke")
+    public Pokemon getRandPokemon() {
+
         return pokemonService.getRandomPokemon();
     }
 

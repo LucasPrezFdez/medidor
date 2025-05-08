@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -21,7 +22,13 @@ public class Measure {
     private double humidity; // Humedad medida por el sensor
     private double solarRadiation; // Radiación solar medida por el sensor
 
-    // @Column(updatable = false)
-    // private LocalDateTime createdAt; // Fecha y hora de la creación del registro
+    @Column(updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now(); // Fecha y hora de la creación del registro
 
+    @PrePersist
+    public void prePersist() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
 }

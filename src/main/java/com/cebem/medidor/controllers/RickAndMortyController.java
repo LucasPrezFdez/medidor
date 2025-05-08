@@ -18,15 +18,9 @@ public class RickAndMortyController {
 
     @GetMapping("/rickandmortyweb")
     public String getRandomCharacter(Model model) {
-        // Hacer una solicitud a la API externa para obtener un personaje aleatorio
-        // String apiUrl = "https://rickandmortyapi.com/api/character/";
-        // RickandmortyCharacter character = restTemplate.getForObject(apiUrl + "1",
-        // RickandmortyCharacter.class); // Aquí puedes usar otro endpoint para obtener
-        // un random
         RickandmortyCharacter character = rickandmortyService.getCharacterRandom();
         // Agregar el personaje al modelo de Thymeleaf
         model.addAttribute("character", character);
-
         // Devolver el nombre del template
         return "characterCard";
     }
