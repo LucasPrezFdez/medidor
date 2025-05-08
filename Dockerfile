@@ -17,7 +17,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copiar el archivo JAR desde la etapa de construcción
-COPY --from=build /app/target/tu-aplicacion.jar /app/tu-aplicacion.jar
+COPY --from=build /app/medidor.jar /app/medidor.jar
 
 # Comando para ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "/app/medidor.jar"]
