@@ -2,6 +2,8 @@ package com.cebem.medidor.controllers;
 
 import com.cebem.medidor.models.SuperheroCharacter;
 import com.cebem.medidor.services.SuperheroService;
+
+import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -16,9 +18,11 @@ public class SuperHeroController {
     private final SuperheroService superheroService;
 
     @GetMapping("/superhero")
-    public ResponseEntity<?> getSuperhero() {
+    public String getSuperhero(Model model) {
         SuperheroCharacter character = superheroService.getSuperheroCharacter();
 
-        return ResponseEntity.ok(character);
+        model.addAttribute("hero", character);
+        // Devolver el nombre del template
+        return "hero";
     }
 }
