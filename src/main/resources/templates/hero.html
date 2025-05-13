@@ -1,102 +1,161 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Superhéroe - <span th:text="${hero.name}">Nombre del Superhéroe</span></title>
+    <title>Superhéroe - <span th:text="${hero.name != null ? hero.name : 'Desconocido'}">Nombre del Superhéroe</span>
+    </title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background: #f5f5f5;
             padding: 20px;
         }
+
         .hero-card {
             background: white;
             border-radius: 10px;
             padding: 25px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             max-width: 800px;
             margin: 0 auto;
         }
+
         .hero-header {
             text-align: center;
         }
+
         .hero-header img {
             border-radius: 50%;
             margin-bottom: 20px;
         }
+
         .section-title {
             color: #333;
             font-weight: bold;
             font-size: 1.2em;
+            margin-top: 20px;
         }
+
         ul {
             list-style-type: none;
             padding: 0;
         }
+
         li {
             padding: 5px 0;
         }
     </style>
 </head>
+
 <body>
     <div class="hero-card">
         <div class="hero-header">
-            <img th:src="${hero.image.url}" alt="Imagen del Héroe" width="200">
-            <h1 th:text="${hero.name}">Nombre del Héroe</h1>
+            <img th:src="${hero.image != null && hero.image.url != null ? hero.image.url : '/default-image.png'}"
+                alt="Imagen del Héroe" width="200">
+            <h1 th:text="${hero.name != null ? hero.name : 'Desconocido'}">Nombre del Héroe</h1>
         </div>
 
         <div>
             <span class="section-title">Estadísticas de Poder</span>
             <ul>
-                <li>Inteligencia: <span th:text="${hero.powerstats.intelligence}"></span></li>
-                <li>Fuerza: <span th:text="${hero.powerstats.strength}"></span></li>
-                <li>Velocidad: <span th:text="${hero.powerstats.speed}"></span></li>
-                <li>Durabilidad: <span th:text="${hero.powerstats.durability}"></span></li>
-                <li>Poder: <span th:text="${hero.powerstats.power}"></span></li>
-                <li>Combate: <span th:text="${hero.powerstats.combat}"></span></li>
+                <li>Inteligencia: <span
+                        th:text="${hero.powerstats != null && hero.powerstats.intelligence != null ? hero.powerstats.intelligence : 'N/A'}"></span>
+                </li>
+                <li>Fuerza: <span
+                        th:text="${hero.powerstats != null && hero.powerstats.strength != null ? hero.powerstats.strength : 'N/A'}"></span>
+                </li>
+                <li>Velocidad: <span
+                        th:text="${hero.powerstats != null && hero.powerstats.speed != null ? hero.powerstats.speed : 'N/A'}"></span>
+                </li>
+                <li>Durabilidad: <span
+                        th:text="${hero.powerstats != null && hero.powerstats.durability != null ? hero.powerstats.durability : 'N/A'}"></span>
+                </li>
+                <li>Poder: <span
+                        th:text="${hero.powerstats != null && hero.powerstats.power != null ? hero.powerstats.power : 'N/A'}"></span>
+                </li>
+                <li>Combate: <span
+                        th:text="${hero.powerstats != null && hero.powerstats.combat != null ? hero.powerstats.combat : 'N/A'}">
+                    </span>
+                </li>
             </ul>
         </div>
 
         <div>
             <span class="section-title">Biografía</span>
             <ul>
-                <li>Nombre completo: <span th:text="${hero.biography.fullName}"></span></li>
-                <li>Alter Egos: <span th:text="${hero.biography.alterEgos}"></span></li>
-                <li>Alias: <span th:text="${#strings.join(hero.biography.aliases, ', ')}"></span></li>
-                <li>Lugar de nacimiento: <span th:text="${hero.biography.placeOfBirth}"></span></li>
-                <li>Primera aparición: <span th:text="${hero.biography.firstAppearance}"></span></li>
-                <li>Editorial: <span th:text="${hero.biography.publisher}"></span></li>
-                <li>Alineación: <span th:text="${hero.biography.alignment}"></span></li>
+                <li>Nombre completo: <span
+                        th:text="${hero.biography != null && hero.biography.fullName != null ? hero.biography.fullName : 'N/A'}"></span>
+                </li>
+                <li>Alter Egos: <span
+                        th:text="${hero.biography != null && hero.biography.alterEgos != null ? hero.biography.alterEgos : 'N/A'}"></span>
+                </li>
+                <li>Alias:
+                    <span
+                        th:text="${hero.biography != null && hero.biography.aliases != null && !#lists.isEmpty(hero.biography.aliases) ? #strings.join(hero.biography.aliases, ', ') : 'N/A'}"></span>
+                </li>
+                <li>Lugar de nacimiento: <span
+                        th:text="${hero.biography != null && hero.biography.placeOfBirth != null ? hero.biography.placeOfBirth : 'N/A'}"></span>
+                </li>
+                <li>Primera aparición: <span
+                        th:text="${hero.biography != null && hero.biography.firstAppearance != null ? hero.biography.firstAppearance : 'N/A'}"></span>
+                </li>
+                <li>Editorial: <span
+                        th:text="${hero.biography != null && hero.biography.publisher != null ? hero.biography.publisher : 'N/A'}"></span>
+                </li>
+                <li>Alineación: <span
+                        th:text="${hero.biography != null && hero.biography.alignment != null ? hero.biography.alignment : 'N/A'}"></span>
+                </li>
             </ul>
         </div>
 
         <div>
             <span class="section-title">Apariencia</span>
             <ul>
-                <li>Género: <span th:text="${hero.appearance.gender}"></span></li>
-                <li>Raza: <span th:text="${hero.appearance.race}"></span></li>
-                <li>Altura: <span th:text="${#strings.join(hero.appearance.height, ', ')}"></span></li>
-                <li>Peso: <span th:text="${#strings.join(hero.appearance.weight, ', ')}"></span></li>
-                <li>Color de ojos: <span th:text="${hero.appearance.eyeColor}"></span></li>
-                <li>Color de cabello: <span th:text="${hero.appearance.hairColor}"></span></li>
+                <li>Género: <span
+                        th:text="${hero.appearance != null && hero.appearance.gender != null ? hero.appearance.gender : 'N/A'}"></span>
+                </li>
+                <li>Raza: <span
+                        th:text="${hero.appearance != null && hero.appearance.race != null ? hero.appearance.race : 'N/A'}"></span>
+                </li>
+                <li>Altura: <span
+                        th:text="${hero.appearance != null && hero.appearance.height != null && !hero.appearance.height.isEmpty() ? #strings.join(hero.appearance.height, ', ') : 'N/A'}"></span>
+                </li>
+                <li>Peso: <span
+                        th:text="${hero.appearance != null && hero.appearance.weight != null && !hero.appearance.weight.isEmpty() ? #strings.join(hero.appearance.weight, ', ') : 'N/A'}"></span>
+                </li>
+                <li>Color de ojos: <span
+                        th:text="${hero.appearance != null && hero.appearance.eyeColor != null ? hero.appearance.eyeColor : 'N/A'}"></span>
+                </li>
+                <li>Color de cabello: <span
+                        th:text="${hero.appearance != null && hero.appearance.hairColor != null ? hero.appearance.hairColor : 'N/A'}"></span>
+                </li>
             </ul>
         </div>
 
         <div>
             <span class="section-title">Trabajo</span>
             <ul>
-                <li>Ocupación: <span th:text="${hero.work.occupation}"></span></li>
-                <li>Base: <span th:text="${hero.work.base}"></span></li>
+                <li>Ocupación: <span
+                        th:text="${hero.work != null && hero.work.occupation != null ? hero.work.occupation : 'N/A'}"></span>
+                </li>
+                <li>Base: <span
+                        th:text="${hero.work != null && hero.work.base != null ? hero.work.base : 'N/A'}"></span></li>
             </ul>
         </div>
 
         <div>
             <span class="section-title">Conexiones</span>
             <ul>
-                <li>Afiliación grupal: <span th:text="${hero.connections.groupAffiliation}"></span></li>
-                <li>Relativos: <span th:text="${hero.connections.relatives}"></span></li>
+                <li>Afiliación grupal: <span
+                        th:text="${hero.connections != null && hero.connections.groupAffiliation != null ? hero.connections.groupAffiliation : 'N/A'}"></span>
+                </li>
+                <li>Relativos: <span
+                        th:text="${hero.connections != null && hero.connections.relatives != null ? hero.connections.relatives : 'N/A'}"></span>
+                </li>
             </ul>
         </div>
     </div>
 </body>
+
 </html>

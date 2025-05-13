@@ -1,5 +1,6 @@
 package com.cebem.medidor.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -29,11 +30,20 @@ public class SuperheroCharacter {
 
     @Data
     public static class Biography {
+        @JsonProperty("full-name")
         private String fullName;
+
+        @JsonProperty("alter-egos")
         private String alterEgos;
+
         private List<String> aliases;
+
+        @JsonProperty("place-of-birth")
         private String placeOfBirth;
+
+        @JsonProperty("first-appearance")
         private String firstAppearance;
+
         private String publisher;
         private String alignment;
     }
@@ -42,9 +52,14 @@ public class SuperheroCharacter {
     public static class Appearance {
         private String gender;
         private String race;
+
         private List<String> height;
         private List<String> weight;
+
+        @JsonProperty("eye-color")
         private String eyeColor;
+
+        @JsonProperty("hair-color")
         private String hairColor;
     }
 
@@ -56,7 +71,9 @@ public class SuperheroCharacter {
 
     @Data
     public static class Connections {
+        @JsonProperty("group-affiliation")
         private String groupAffiliation;
+
         private String relatives;
     }
 
