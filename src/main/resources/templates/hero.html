@@ -9,7 +9,7 @@
 <body class="bg-gray-100">
     <div class="max-w-sm mx-auto mt-10">
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img th:src="@{${hero.image.url}}" alt="Imagen del personaje" class="w-full h-64 object-cover">
+            <img th:src="${hero.image.url}" alt="Imagen del personaje" class="w-full h-64 object-cover">
             <div class="p-4">
                 <h2 th:text="${hero.name}" class="text-2xl font-bold mb-2"></h2>
 
